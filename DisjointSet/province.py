@@ -15,4 +15,19 @@ class Solution:
 
     def connected(self, x, y):
         return self.find(x) == self.find(y) 
- 
+    
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        self.size = len(isConnected)
+        self.root = [i for i in range(self.size)]
+        self.dups = []
+        self.count = 0
+
+        for i in range(self.size):
+            for j in range(self.size):
+                if isConnected[i][j] == 1 and i != j:
+                    if self.connected(i, j) == False:
+                        self.union(i, j)
+        for i in range(self.size):
+            if self.find(i) == i:
+                self.count += 1             
+        return self.count
